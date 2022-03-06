@@ -1,0 +1,86 @@
+<div class="contrainer">
+    <div class="center">
+        <h1>Book a Flight</h1>
+        <form [formGroup]="flightForm">
+            <div class="group">
+                <label for="fullname" class="form__label">Fullname:</label><br>
+                <input type="text" class="form__field" formControlName="fullName" placeholder="Enter your full-name"><br>
+            </div>
+            <label for="from ">Form:</label><br>
+            <select id="select_form " name="from " formControlName="from">
+        <option value="Russia ">Russia</option>
+        <option value="Thailand ">Thailand</option>
+        <option value="USA ">USA</option>
+        <option value="Japan ">Japan</option>
+    </select><br>
+            <label for="to ">To:</label><br>
+            <select id="select_to " name="to " formControlName="to">
+        <option value="Russia ">Russia</option>
+        <option value="Thailand ">Thailand</option>
+        <option value="USA ">USA</option>
+        <option value="Japan ">Japan</option>
+    </select>
+            <p>Trip Type</p>
+            <input class="form-check-input" type="radio" value="One-way" formControlName="type">
+            <label for="One-way">One-way</label><br>
+            <input class="form-check-input" type="radio" value="Return" formControlName="type">
+            <label for="Return">Return</label><br>
+            <div class="flex-date">
+                <div>
+                    <label>Departure : </label> <br />
+                    <mat-form-field appearance="fill">
+                        <mat-label>Choose a date</mat-label>
+                        <input matInput [matDatepicker]="departurePicker " formControlName="departure" [min]="minDate " />
+                        <mat-datepicker-toggle matSuffix [for]="departurePicker "></mat-datepicker-toggle>
+                        <mat-datepicker #departurePicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <label>Arrival : </label> <br />
+                    <mat-form-field appearance="fill">
+                        <mat-label>Choose a date</mat-label>
+                        <input matInput [matDatepicker]="arrivalPicker " formControlName="arrival" [min]="flightForm.value.departure " />
+                        <mat-datepicker-toggle matSuffix [for]="arrivalPicker "></mat-datepicker-toggle>
+                        <mat-datepicker #arrivalPicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <label for="adults ">Adults:</label><br>
+            <input type="number" class="form-control" formControlName="adults" placeholder="Enter a number" min="0" max="10"><br>
+            <label for="children ">Children:</label><br>
+            <input type="number" class="form-control" formControlName="children" placeholder="Enter a number" min="0" max="10"><br>
+            <label for="infants ">Infants:</label><br>
+            <input type="number" class="form-control" formControlName="infants" placeholder="Enter a number" min="0" max="10"><br><br>
+            <button class="button" type="submit" [disabled]="flightForm.invalid" (click)="onSubmit(flightForm.value)">Submit</button>
+        </form>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Full Name</th>
+            <th scope="col">From</th>
+            <th scope="col">To</th>
+            <th scope="col">Type</th>
+            <th scope="col">Departure</th>
+            <th scope="col">Arrival</th>
+            <th scope="col">Adults</th>
+            <th scope="col">Children</th>
+            <th scope="col">Infants</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let f of flight">
+            <td>{{ f.fullName }}</td>
+            <td>{{ f.from }}</td>
+            <td>{{ f.to }}</td>
+            <td>{{ f.type }}</td>
+            <td>{{ f.departure | date: "d MMM y" }}</td>
+            <td>{{ f.arrival | date: "d MMM y" }}</td>
+            <td>{{ f.adults }}</td>
+            <td>{{ f.children }}</td>
+            <td>{{ f.infants }}</td>
+        </tr>
+    </tbody>
+</table>
